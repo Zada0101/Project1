@@ -1,0 +1,5 @@
+This is my first file with ascii 
+ a verse or passage of Scripture chosen especially for the subject of a sermon or for authoritative support (as for a doctrine) with
+
+ Java VisualVM is a tool that provides a visual interface for viewing detailed information about Java technology-based applications (Java applications) while they are running on a Java Virtual Machine (JVM). Java VisualVM organizes JVM data that is retrieved by the Java Development Kit (JDK) tools and presents the information in a way that enables you to quickly view data on multiple Java applications. You can view data on local applications and applications that are running on remote hosts. You can also capture data about the JVM software and save the data to your local system, and view the data later or share the data with others.
+

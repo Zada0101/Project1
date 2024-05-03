@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Compression</title>
+</head>
+<body>
+    <input type="file" id="fileInput" />
+    <button onclick="compressAndDecompress()">Compress & Decompress</button>
+
+    <script>
+    function compressAndDecompress() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+        const inputText = event.target.result;
+        const words = inputText.split(/\s+/);
+
+        // Convert each word to ASCII code
+        const asciiWords = words.map(word => {
+            let asciiCode = '';
+            for (let i = 0; i < word.length; i++) {
+                asciiCode += word.charCodeAt(i) + ' ';
+            }
+            return asciiCode.trim();
+        });
+
+        const wordMap = new Map();
+        let code = 0;
+
+        asciiWords.forEach(word => {
+            if (!wordMap.has(word)) {
+                wordMap.set(word, code++);
+            }
+        });
+
+        const compressedText = asciiWords.map(word => wordMap.get(word)).join(' ');
+
+        // Download the compressed file
+        const compressedBlob = new Blob([compressedText], { type: 'text/plain' });
+        const compressedUrl = URL.createObjectURL(compressedBlob);
+        const compressedLink = document.createElement('a');
+        compressedLink.href = compressedUrl;
+        compressedLink.download = 'output.sc';
+        document.body.appendChild(compressedLink);
+        compressedLink.click();
+        document.body.removeChild(compressedLink);
+
+        // Decompress
+        const codes = compressedText.split(' ');
+        const decompressedText = codes.map(code => {
+            return [...wordMap.keys()][code];
+        }).join(' ');
+
+        // Download the decompressed file
+        const decompressedBlob = new Blob([decompressedText], { type: 'text/plain' });
+        const decompressedUrl = URL.createObjectURL(decompressedBlob);
+        const decompressedLink = document.createElement('a');
+        decompressedLink.href = decompressedUrl;
+        decompressedLink.download = 'readable.txt';
+        document.body.appendChild(decompressedLink);
+        decompressedLink.click();
+        document.body.removeChild(decompressedLink);
+    };
+
+    reader.readAsText(file);
+}
+    
+    </script>
+</body>
+</html>
