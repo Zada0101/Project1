@@ -1,4 +1,6 @@
 
+
+
 const fs =require("fs");
 const inputText = fs.readFileSync("input.txt", "utf8");
 const words = inputText.split(/\s+/);
@@ -10,6 +12,7 @@ words.forEach((word) => {
   }
 });
 
+//identify words and assign codes
 const compressedText = words.map((word) => wordMap.get(word)).join(" ");
 fs.writeFileSync("output.sc", compressedText);
 const compressedDate = fs.readFileSync("output.sc", "utf8");
